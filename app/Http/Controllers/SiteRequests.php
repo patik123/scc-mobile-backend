@@ -12,17 +12,16 @@ class SiteRequests extends Controller
     * Pridobi jedilnik. Vrne podatke o jedilniku.
     */
     public function getPrehranaWebsite(){
-        $response = Http::withOptions(["verify"=>false])->get('https://prehrana.sc-celje.si/login');
-        return $response->body();
+        return Http::withOptions(["verify"=>false])->get('https://prehrana.sc-celje.si/login')->body();
     }
 
     /*
     * Pridobi stran šole. Vrne vsebino strani.
-    * Zahtevan je url strani šole ?school=ker.sc-celje.si
+    * Zahtevan je url strani šole ?url=ker.sc-celje.si
     */
 
     public function getSchoolSite(Request $request){
-        $url = $request->all()['school'];
+        $url = $request->all()['url'];
         return Http::withOptions(["verify"=>false])->get($url)->body();
     }
 }

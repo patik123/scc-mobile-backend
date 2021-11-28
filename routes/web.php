@@ -19,8 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/prehrana', [SiteRequests::class, 'getPrehranaWebsite']);
-Route::get('/school-site', [SiteRequests::class, 'getSchoolSite']);
+Route::get('sites/prehrana', [SiteRequests::class, 'getPrehranaWebsite']);
+Route::get('sites/school', [SiteRequests::class, 'getSchoolSite']);
 
 // UNTIS FUNCTIONS (API)
 Route::get('untis/get_classes', [UntisApi::class, 'get_classes']);
@@ -33,5 +33,6 @@ Route::get('untis/get_departments', [UntisApi::class, 'get_departments']);
 Route::get('untis/get_holidays', [UntisApi::class, 'get_holidays']);
 Route::get('untis/get_current_year', [UntisApi::class, 'get_current_year']);
 Route::get('untis/get_latest_update_time', [UntisApi::class, 'get_latest_update_time']);
+Route::get('untis/get_class_timetable', [UntisApi::class, 'get_class_timetable']);
 
 

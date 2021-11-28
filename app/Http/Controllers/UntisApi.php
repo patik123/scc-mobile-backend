@@ -153,4 +153,33 @@ class UntisApi extends Controller
         ];
         return self::get_data($data);
     }
+
+    public function get_class_timetable(Request $request){    
+        $class_id = $request->all()['class_id'];
+        $start_date = $request->all()['start_date'];
+        $end_date = $request->all()['end_date'];
+        $data = [
+            'id' => self::id(),
+            'method' => 'getTimetable',
+            'params' => [
+                'options' => [
+                    "element" => [
+                        "id" => $class_id,
+                        "type" => "1"
+                    ],
+                    "startDate" => $start_date,
+                    "endDate" => $end_date,
+                    "showInfo" => true,
+                    "showSubstText" => true,
+                    "showLsText" => true,
+                    "klasseFields" => ["id", "name", "longname", "externalkey"],
+                    "roomFields" => ["id", "name", "longname", "externalkey"],
+                    "subjectFields" => ["id", "name", "longname", "externalkey"],
+                    "teacherFields" => ["id", "name", "longname", "externalkey"]
+                ],
+            ],
+            "jsonrpc" => "2.0"
+        ];
+        return self::get_data($data);
+    }
 }
