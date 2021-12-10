@@ -24,4 +24,18 @@ class SiteRequests extends Controller
         $url = $request->all()['url'];
         return Http::withOptions(["verify"=>false])->get($url)->body();
     }
+
+    public function validateJWTToken(Request $request){
+        if(!$request->hasHeader('Authorization')){
+            return response()->json(['error' => 'No token provided.'], 401);
+        }
+        $token = $request->bearerToken();
+        $token = str_replace('Bearer ', '', $token);
+        $token_decode = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
+
+        if($token_decode->exp < time()){
+            return response()->json(['error' => 'Token expired'], 401);
+        }
+        return response()->json(['success' => 'Token valid'], 200);
+    }
 }

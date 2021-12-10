@@ -17,7 +17,7 @@ class UntisApi extends Controller
     private static function get_data( $data ){
 
         $sessionId = self::AuthUntis();
-        $response = Http::withOptions(['verify' => false])->withBody(json_encode($data), 'application/json')->withHeaders(['Cookie' => 'JSESSIONID='.$sessionId ])->post('https://ajax.webuntis.com/WebUntis/jsonrpc.do?school=sc-celje');
+        $response = Http::withOptions(['verify' => false])->withBody(json_encode($data), 'application/json')->withHeaders(['Cookie' => 'JSESSIONID='.$sessionId ])->post(env('UNTIS_URL').'/WebUntis/jsonrpc.do?school='. env('UNTIS_SCHOOL_NAME'));
    
         $response = $response->body();
 
@@ -28,8 +28,8 @@ class UntisApi extends Controller
 
     private function AuthUntis()
     {
-        $username = $_ENV['UNTIS_USERNAME'];
-        $password = $_ENV['UNTIS_PASSWORD'];
+        $username = env('UNTIS_USERNAME');
+        $password = env('UNTIS_PASSWORD');
         $data = [
             'id' => self::id(),
             'method' => 'authenticate',
@@ -41,7 +41,7 @@ class UntisApi extends Controller
             "jsonrpc" => "2.0"
         ];
 
-        $response = Http::withOptions(['verify' => false])->withBody(json_encode($data), 'application/json')->post($_ENV['UNTIS_URL'].'/WebUntis/jsonrpc.do?school='. $_ENV['UNTIS_SCHOOL_NAME']);
+        $response = Http::withOptions(['verify' => false])->withBody(json_encode($data), 'application/json')->post(env('UNTIS_URL').'/WebUntis/jsonrpc.do?school='. env('UNTIS_SCHOOL_NAME'));
    
         $response = $response->body();
 
