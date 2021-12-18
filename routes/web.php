@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('untis/get_current_year', [UntisApi::class, 'get_current_year']);
     Route::get('untis/get_latest_update_time', [UntisApi::class, 'get_latest_update_time']);
     Route::get('untis/get_class_timetable', [UntisApi::class, 'get_class_timetable']);
+    Route::get('untis/get_teacher_timetable', [UntisApi::class, 'get_teacher_timetable']);
+    Route::get('untis/search', [UntisApi::class, 'search']);
 });
 
 // UJAME VSE STRANI KI NISO NA VOLJO

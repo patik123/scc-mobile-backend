@@ -182,4 +182,53 @@ class UntisApi extends Controller
         ];
         return self::get_data($data);
     }
+
+    public function get_teacher_timetable(Request $request){
+        $teacher_id = $request->all()['teacher_id'];
+        $start_date = $request->all()['start_date'];
+        $end_date = $request->all()['end_date'];
+        $data = [
+            'id' => self::id(),
+            'method' => 'getTimetable',
+            'params' => [
+                'options' => [
+                    "element" => [
+                        "id" => $teacher_id,
+                        "type" => "2"
+                    ],
+                    "startDate" => $start_date,
+                    "endDate" => $end_date,
+                    "showInfo" => true,
+                    "showSubstText" => true,
+                    "showLsText" => true,
+                    "klasseFields" => ["id", "name", "longname", "externalkey"],
+                    "roomFields" => ["id", "name", "longname", "externalkey"],
+                    "subjectFields" => ["id", "name", "longname", "externalkey"],
+                    "teacherFields" => ["id", "name", "longname", "externalkey"]
+                ],
+            ],
+            "jsonrpc" => "2.0"
+        ];
+        return self::get_data($data);
+    }   
+
+    public function search(Request $request){
+        $first_name = $request->all()['first_name'];
+        $last_name = $request->all()['last_name'];
+        $type = $request->all()['type'];
+
+        $data = [
+            'id' => self::id(),
+            'method' => 'getPersonId',
+            'params' => [
+                "sn" => $last_name,
+                "type" => $type,
+                "dob" => 0,
+                "fn" => $first_name
+            ],
+            "jsonrpc" => "2.0"
+        ];
+
+        return self::get_data($data);
+    }
 }
