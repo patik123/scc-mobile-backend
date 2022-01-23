@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Obvescanje;
 use App\Http\Controllers\SiteRequests;
 use App\Http\Controllers\UntisApi;
+use App\Http\Controllers\EviWeb;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Authentication Routes ...
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['check_auth'])->group(function () {
     // standard routes
     Route::get('sites/prehrana', [SiteRequests::class, 'getPrehranaWebsite']);
     Route::get('sites/url_proxy', [SiteRequests::class, 'getSchoolSite']);
@@ -36,9 +40,23 @@ Route::middleware(['auth'])->group(function () {
     Route::get('untis/get_class_timetable', [UntisApi::class, 'get_class_timetable']);
     Route::get('untis/get_teacher_timetable', [UntisApi::class, 'get_teacher_timetable']);
     Route::get('untis/search', [UntisApi::class, 'search']);
+
+    // Obveščanje
+    Route::post('obvestila/create_obvestilo', [Obvescanje::class, 'create_obvestilo']);
+    Route::get('obvestila/get_obvestila_global', [Obvescanje::class, 'get_obvestila_global']);
+
+
+    // EviWeb
+    Route::post('eviweb/encrypt_user_credits', [EviWeb::class, 'encrypt_user_credits']);
+    Route::post('eviweb/login', [EviWeb::class, 'evi_login']);
+    Route::post('eviweb/redovalnica', [EviWeb::class, 'evi_redovalnica']);
+    Route::post('eviweb/testi', [EviWeb::class, 'evi_testi']);
+
+
+
 });
 
 // UJAME VSE STRANI KI NISO NA VOLJO
-Route::any('{catchall}',function () {
+Route::any('{catchall}', function () {
     return view('welcome');
 })->where('catchall', '.*');
