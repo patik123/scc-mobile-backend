@@ -48,9 +48,11 @@ Route::middleware(['check_auth'])->group(function () {
 
     // EviWeb
     Route::post('eviweb/encrypt_user_credits', [EviWeb::class, 'encrypt_user_credits']);
-    Route::post('eviweb/login', [EviWeb::class, 'evi_login']);
+    Route::post('eviweb/predmeti', [EviWeb::class, 'evi_predmeti']);
     Route::post('eviweb/redovalnica', [EviWeb::class, 'evi_redovalnica']);
     Route::post('eviweb/testi', [EviWeb::class, 'evi_testi']);
+    Route::post('eviweb/ucitelji', [EviWeb::class, 'evi_ucitelji']);
+    Route::get('eviweb/version', [EviWeb::class, 'evi_version']);
 
 
 
