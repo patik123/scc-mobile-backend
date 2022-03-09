@@ -4,6 +4,7 @@ use App\Http\Controllers\Obvescanje;
 use App\Http\Controllers\SiteRequests;
 use App\Http\Controllers\UntisApi;
 use App\Http\Controllers\EviWeb;
+use App\Http\Controllers\Users;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::middleware(['check_auth'])->group(function () {
     Route::get('sites/prehrana', [SiteRequests::class, 'getPrehranaWebsite']);
     Route::get('sites/url_proxy', [SiteRequests::class, 'getSchoolSite']);
     Route::get('sites/validate_token', [SiteRequests::class, 'validateJWTToken']);
+    Route::post('user', [Users::class, 'User']);
+    Route::post('user/update', [Users::class, 'UpdateUser']);
     
     // UNTIS FUNCTIONS (API)
     Route::get('untis/get_classes', [UntisApi::class, 'get_classes']);
@@ -52,10 +55,9 @@ Route::middleware(['check_auth'])->group(function () {
     Route::post('eviweb/redovalnica', [EviWeb::class, 'evi_redovalnica']);
     Route::post('eviweb/testi', [EviWeb::class, 'evi_testi']);
     Route::post('eviweb/ucitelji', [EviWeb::class, 'evi_ucitelji']);
+    Route::post('eviweb/izostanki', [EviWeb::class, 'evi_izostanki']);
     Route::get('eviweb/version', [EviWeb::class, 'evi_version']);
-
-
-
+    Route::post('eviweb/available', [EviWeb::class, 'evi_available']);
 });
 
 // UJAME VSE STRANI KI NISO NA VOLJO
