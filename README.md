@@ -1,5 +1,7 @@
 
-ŠCC Mobile - backend
+# ŠCC Mobile - backend
+
+![ŠCC Mobile Logo](https://user-images.githubusercontent.com/69119220/211145988-72f5cbb4-8af5-45a5-86ae-604aabf1e588.png)
 
 Zaledni sistem za mobilno aplikacijo ŠCC Mobile.
 
